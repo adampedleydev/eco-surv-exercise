@@ -22,6 +22,7 @@ This project uses the Jest and React Testing Library for unit testing. To run th
 
 ## Built With
 -   React
+-   Vite
 -   Axios
 -   Jest
 -   React Testing Library
