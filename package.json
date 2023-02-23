@@ -1,10 +1,13 @@
 {
   "name": "eco-surv-exercise",
+  "homepage": "https://adampedleydev.github.io/adampedleydev.github.io",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
