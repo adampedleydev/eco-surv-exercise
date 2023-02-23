@@ -19,13 +19,14 @@ const ImagesView: React.FC<Props> = ({ breed, subBreed, imagesCount }) => {
     }, [breed, subBreed, imagesCount]);
 
     return (
-        <div>
+        <div className={""}>
             <h2>{breedString}</h2>
-            <div>
+            <div className={"flex flex-wrap"}>
                 {imageUrls.map((url, index) => (
                     <img
                         key={`${breed}-${subBreed}-${index}`}
                         src={url}
+                        className={"w-96 h-96 object-fill border-4 border-cyan-300"}
                         alt={`${breedString} image ${index}`}
                     />
                 ))}

@@ -6,6 +6,10 @@ interface DogImagesProps {
     number: number;
 }
 
+function capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function DogImages({ breed, subBreed, number }: DogImagesProps) {
     const [dogImages, setDogImages] = useState<string[]>([]);
 
@@ -22,10 +26,12 @@ function DogImages({ breed, subBreed, number }: DogImagesProps) {
             .then(data => setDogImages(data.message));
     }, [breed, subBreed, number]);
 
+    const capitalizedBreed = capitalize(breed);
+
     return (
         <div>
             {dogImages.map(imageUrl => (
-                <img key={imageUrl} src={imageUrl} alt={`${breed} ${subBreed || ''}`} />
+                <img key={imageUrl} src={imageUrl} alt={`${capitalizedBreed} ${subBreed || ''}`} />
             ))}
         </div>
     );

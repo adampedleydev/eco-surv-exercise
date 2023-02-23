@@ -10,8 +10,11 @@
     "allowJs": true,
     "moduleResolution": "node",
     "jsx": "react",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts*"],
+  "include": [
+    "src/**/*",
+    "vite.config.cjs"
+  ],
   "exclude": ["node_modules", "dist", "lib"]
 }

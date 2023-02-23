@@ -8,6 +8,8 @@ const App: React.FC = () => {
     const [selectedBreed, setSelectedBreed] = useState<string>('');
     const [selectedSubBreed, setSelectedSubBreed] = useState<string>('');
     const [selectedNumber, setSelectedNumber] = useState<number>(1);
+    const [showImages, setShowImages] = useState<boolean>(false);
+    const [buttonPressed, setButtonPressed] = useState<boolean>(false);
 
     const handleBreedSelect = (breed: string) => {
         setSelectedBreed(breed);
@@ -22,33 +24,44 @@ const App: React.FC = () => {
         setSelectedNumber(number);
     };
 
+    const handleViewImagesClick = () => {
+        if (selectedBreed) {
+            setShowImages(true);
+            setButtonPressed(true);
+        }
+    };
+
     return (
-        <div className="container">
-            <div className="row my-3">
-                <div className="col-md-4">
-                    <BreedSelect onBreedSelect={handleBreedSelect} breedList={[]} />
+        <div className="container m-5">
+            <div className="flex flex-wrap justify-center items-center mb-4">
+                <div className="mr-4">
+                    <BreedSelect onBreedSelect={handleBreedSelect} breedList={[]} isButtonPressed={buttonPressed} />
                 </div>
                 {selectedBreed && (
-                    <div className="col-md-4">
+                    <div className="mr-4">
                         <SubBreedSelect
                             breed={selectedBreed}
                             onSubBreedSelect={handleSubBreedSelect}
                         />
                     </div>
                 )}
-                <div className="col-md-4">
+                <div className="mr-4">
                     <NumberSelect onNumberSelect={handleNumberSelect} />
                 </div>
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-6 rounded"
+                    onClick={handleViewImagesClick}
+                >
+                    View Images
+                </button>
             </div>
-            {selectedBreed && (
-                <div className="row my-3">
-                    <div className="col-md-12">
-                        <ImagesView
-                            breed={selectedBreed}
-                            subBreed={selectedSubBreed}
-                            imagesCount={selectedNumber}
-                        />
-                    </div>
+            {showImages && (
+                <div>
+                    <ImagesView
+                        breed={selectedBreed}
+                        subBreed={selectedSubBreed}
+                        imagesCount={selectedNumber}
+                    />
                 </div>
             )}
         </div>
