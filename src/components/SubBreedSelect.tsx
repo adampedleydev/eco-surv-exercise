@@ -12,22 +12,14 @@ const SubBreedSelect: React.FC<SubBreedSelectProps> = ({
                                                        }) => {
     const [subBreeds, setSubBreeds] = useState<string[]>([]);
     const [selectedSubBreed, setSelectedSubBreed] = useState<string>('');
-    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         const fetchSubBreeds = async () => {
-            try {
-                const response = await axios.get(
-                    `https://dog.ceo/api/breed/${breed}/list`
-                );
-                const subBreedsArray = response.data.message.map((subBreed: string) => {
-                    return subBreed.charAt(0).toUpperCase() + subBreed.slice(1);
-                });
-                setSubBreeds(subBreedsArray);
-                setError('');
-            } catch (error) {
-                setError('Error fetching sub-breeds. Please try again later.');
-            }
+            const response = await axios.get(
+                `https://dog.ceo/api/breed/${breed}/list`
+            );
+            const subBreedsArray = response.data.message;
+            setSubBreeds(subBreedsArray);
         };
 
         if (breed) {
@@ -45,6 +37,10 @@ const SubBreedSelect: React.FC<SubBreedSelectProps> = ({
         return null;
     }
 
+    const capitalizeFirstLetter = (str: string) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
+
     return (
         <div>
             <label htmlFor="subBreedSelect" className="font-medium text-gray-700 mb-2 text-xl">
@@ -52,20 +48,17 @@ const SubBreedSelect: React.FC<SubBreedSelectProps> = ({
             </label>
             <select
                 id="subBreedSelect"
-                className={`w-full py-2 px-3 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${error ? 'border-red-500' : 'border-gray-300'}`}
+                className="w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 value={selectedSubBreed}
                 onChange={handleSubBreedSelect}
             >
                 <option value="">* Select a sub-breed *</option>
                 {subBreeds.map((subBreed) => (
                     <option key={subBreed} value={subBreed}>
-                        {subBreed}
+                        {capitalizeFirstLetter(subBreed)}
                     </option>
                 ))}
             </select>
-            {error && (
-                <p className="text-red-500 text-sm mt-1">{error}</p>
-            )}
         </div>
     );
 };

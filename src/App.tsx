@@ -3,6 +3,9 @@ import BreedSelect from './components/BreedSelect';
 import SubBreedSelect from './components/SubBreedSelect';
 import NumberSelect from './components/NumberSelect';
 import ImagesView from './components/ImagesView';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
     const [selectedBreed, setSelectedBreed] = useState<string>('');
@@ -28,12 +31,15 @@ const App: React.FC = () => {
         if (selectedBreed) {
             setShowImages(true);
             setButtonPressed(true);
+        } else {
+            toast.error('Please select a breed before viewing images');
         }
     };
 
     return (
         <div className="container m-5">
-            <div className="flex flex-wrap justify-center items-center mb-4">
+            <ToastContainer />
+            <div className="flex flex-wrap items-center mb-4">
                 <div className="mr-4">
                     <BreedSelect onBreedSelect={handleBreedSelect} breedList={[]} isButtonPressed={buttonPressed} />
                 </div>
